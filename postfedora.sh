@@ -113,7 +113,7 @@ main_menu()
         hardware_acceleration
         update_mulimedia_codec
         optimizations
-
+        get_wallpaper
         if [[ $deskenv == "GNOME" ]]
         then
             set_gnome_settings
@@ -581,15 +581,20 @@ optimizations()
     echo
 }
 
+get_wallpaper()
+{
+    sudo curl -sL -o /usr/share/backgrounds/astronaut.png https://raw.githubusercontent.com/orangci/walls/main/astronaut.png
+}
+
 set_gnome_settings()
 {
     echo "Updating gnome settings..."
 
     weatherlocation="[<(uint32 2, <('Ottignies', '', false, [(0.88429474975634159, 0.079744969689317949)], @a(dd) [])>)>]"
     
-    dconf write /org/gnome/desktop/background/picture-uri "'file:///usr/share/backgrounds/gnome/blobs-l.svg'"
-    dconf write /org/gnome/desktop/background/picture-uri-dark "'file:///usr/share/backgrounds/gnome/blobs-d.svg'"
-    dconf write /org/gnome/desktop/interface/accent-color "'blue'"
+    dconf write /org/gnome/desktop/background/picture-uri "'file:///usr/share/backgrounds/astronaut.png'"
+    dconf write /org/gnome/desktop/background/picture-uri-dark "'file:///usr/share/backgrounds/astronaut.png'"
+    dconf write /org/gnome/desktop/interface/accent-color "'orange'"
     dconf write /org/gnome/desktop/interface/clock-format "'24h'"
     dconf write /org/gnome/desktop/interface/clock-show-weekday true
     dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
@@ -642,8 +647,10 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/pop-shell/gap-inner "uint32 1"
 
     # rounder windows corners
-    dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/global-rounded-corner-settings "{'padding': <{'left': uint32 1, 'right': 1, 'top': 1, 'bottom': 1}>, 'keepRoundedCorners': <{'maximized': false, 'fullscreen': false}>, 'borderRadius': <uint32 13>, 'smoothing': <0.0>, 'borderColor': <(0.5, 0.5, 0.5, 1.0)>, 'enabled': <true>}"
-
+    dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/global-rounded-corner-settings "{'padding': <{'left': uint32 1, 'right': 1, 'top': 1, 'bottom': 1}>, 'keepRoundedCorners': <{'maximized': false, 'fullscreen': false}>, 'borderRadius': <uint32 12>, 'smoothing': <0.0>, 'borderColor': <(1.0, 1.0, 1.0, 1.0)>, 'enabled': <true>}"
+    dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/border-width 1
+    dconf write /org/gnome/shell/extensions/rounded-window-corners-reborn/skip-libadwaita-app false
+    
     # blur-my-shell
     dconf write /org/gnome/shell/extensions/blur-my-shell/panel/blur false
     dconf write /org/gnome/shell/extensions/blur-my-shell/overview/blur true
@@ -661,14 +668,16 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/blur-my-shell/window-list/blur false
 
     # space bar
-    dconf write /org/gnome/shell/extensions/space-bar/behavior/system-workspace-indicator false
+    dconf write /org/gnome/shell/extensions/space-bar/behavior/system-workspace-indicwator false
     dconf write /org/gnome/shell/extensions/space-bar/behavior/position-index 0
     dconf write /org/gnome/shell/extensions/space-bar/behavior/indicator-style "'workspaces-bar'"
+    dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-background-color "'rgb(255,255,255)'"
+    dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-text-color "'rgb(237,91,0)'"
 
     # open bar
     dconf write /org/gnome/shell/extensions/openbar/bartype "'Islands'"
     dconf write /org/gnome/shell/extensions/openbar/margin 1.0
-    dconf write /org/gnome/shell/extensions/openbar/wmaxbar true
+    dconf write /org/gnome/shell/extensions/openbar/wmaxbar false
     dconf write /org/gnome/shell/extensions/openbar/bwidth 1.0
     dconf write /org/gnome/shell/extensions/openbar/border-wmax true
     dconf write /org/gnome/shell/extensions/openbar/bgalpha-wmax 1.0
@@ -679,9 +688,8 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/openbar/isalpha 1.0
     dconf write /org/gnome/shell/extensions/openbar/bgalpha 0.0
     dconf write /org/gnome/shell/extensions/openbar/boxalpha 0.0
-    dconf write /org/gnome/desktop/interface/accent-color "'blue'"
-    dconf write /org/gnome/shell/extensions/openbar/mscolor "['0.110', '0.443', '0.847']"
-    dconf write /org/gnome/shell/extensions/openbar/dark-mscolor "['0.110', '0.443', '0.847']"
+    dconf write /org/gnome/shell/extensions/openbar/dark-mscolor "['0.929', '0.357', '0.000']"
+    dconf write /org/gnome/shell/extensions/openbar/mscolor "['0.929', '0.357', '0.000']"
 
     # dash-to-dock
     dconf write /org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size 42
