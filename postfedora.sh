@@ -56,6 +56,7 @@ terminal="zsh"
 apps="keepassxc codium evolution flatpak"
 fonts="droidsansmono-nerd-fonts"
 games="steam lutris discord"
+themes="tela-icon-theme"
 
 # extensions from package manager
 gextensions="gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-caffeine gnome-shell-extension-gsconnect gnome-shell-extension-pop-shell gnome-shell-extension-drive-menu"
@@ -391,7 +392,7 @@ install_packages()
     sudo dnf check-update -y
     sudo dnf group upgrade -y core
     sudo dnf update -y
-    sudo dnf install -y $terminal $apps $games $fonts
+    sudo dnf install -y $terminal $apps $games $fonts $themes
     # FLATHUB
     echo "Configuring flathub..."
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -599,6 +600,7 @@ set_gnome_settings()
     dconf write /org/gnome/desktop/interface/clock-show-weekday true
     dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
     dconf write /org/gnome/desktop/interface/gtk-them "'Adwaita-dark'"
+    dconf write /org/gnome/desktop/interface/icon-theme "'Tela'"
     dconf write /org/gnome/desktop/interface/show-battery-percentage true
     dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
     dconf write /org/gnome/desktop/peripherals/mouse/speed 0.0
