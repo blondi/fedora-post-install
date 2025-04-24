@@ -7,7 +7,33 @@ my_profile=
 
 # display
 #TODO: update deskconfig
-desktopmon=
+desktopmon=$( cat <<EOF
+<monitors version="2">
+  <configuration>
+    <layoutmode>logical</layoutmode>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>DP-1</connector>
+          <vendor>GSM</vendor>
+          <product>LG ULTRAWIDE</product>
+          <serial>0x00013038</serial>
+        </monitorspec>
+        <mode>
+          <width>3440</width>
+          <height>1440</height>
+          <rate>75.050</rate>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+</monitors>
+EOF
+)
 laptopmon=$( cat <<EOF
 <monitors version="2">
   <configuration>
@@ -333,8 +359,8 @@ mount_games_drive()
 configure_git()
 {
     echo "Configuring GIT..."
-    git config --global user.name $username &> /dev/null
-    git config --global user.email $email &> /dev/null
+    git config --global user.name $git_username &> /dev/null
+    git config --global user.email $git_email &> /dev/null
     echo
 }
 
@@ -445,6 +471,11 @@ install_gnome_extensions_from_zip()
         gnome-extensions install archive.zip --force
         rm archive.zip
     done
+}
+
+install_gnome_extension_appmenu_is_back()
+{
+    git clone https://github.com/fthx/appmenu-is-back.git ~/.local/share/gnome-shell/extensions/appmenu-is-back@fthx
 }
 
 install_gnome_extension_clipboard()
@@ -599,7 +630,7 @@ set_gnome_settings()
     dconf write /org/gnome/desktop/interface/clock-format "'24h'"
     dconf write /org/gnome/desktop/interface/clock-show-weekday true
     dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
-    dconf write /org/gnome/desktop/interface/gtk-them "'Adwaita-dark'"
+    dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
     dconf write /org/gnome/desktop/interface/icon-theme "'Tela'"
     dconf write /org/gnome/desktop/interface/show-battery-percentage true
     dconf write /org/gnome/desktop/peripherals/mouse/accel-profile "'flat'"
@@ -670,7 +701,7 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/blur-my-shell/window-list/blur false
 
     # space bar
-    dconf write /org/gnome/shell/extensions/space-bar/behavior/system-workspace-indicwator false
+    dconf write /org/gnome/shell/extensions/space-bar/behavior/system-workspace-indicator false
     dconf write /org/gnome/shell/extensions/space-bar/behavior/position-index 0
     dconf write /org/gnome/shell/extensions/space-bar/behavior/indicator-style "'workspaces-bar'"
     dconf write /org/gnome/shell/extensions/space-bar/appearance/active-workspace-background-color "'rgb(255,255,255)'"
@@ -699,6 +730,10 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/dash-to-dock/transparency-mode "'DEFAULT'"
     dconf write /org/gnome/shell/extensions/dash-to-dock/hot-keys false
     dconf write /org/gnome/shell/extensions/dash-to-dock/disable-overview-on-startup true
+    dconf write /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top true
+    dconf write /org/gnome/shell/extensions/dash-to-dock/show-mounts-network true
+    dconf write /org/gnome/shell/extensions/dash-to-dock/isolate-locations false
+
 
     echo
 }
@@ -717,6 +752,7 @@ enable_gnome_extensions()
         "rounded-window-corners@fxgn"
         "weatherornot@somepaulo.github.io"
         "wireless-hid@chlumskyvaclav.gmail.com"
+        "appmenu-is-back@fthx"
         "blur-my-shell@aunetx"
         "space-bar@luchrioh"
         "openbar@neuromorph"
