@@ -536,6 +536,9 @@ reboot_machine()
         	do
            		sleep 5s
 			done
+
+            drmenabled=$( sudo cat /sys/module/nvidia_drm/parameters/modeset )
+            if [ $drmenabled == "N" ] ; then sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1" ; fi
 		fi
     fi
     
@@ -606,7 +609,6 @@ update_mulimedia_codec()
 optimizations()
 {
     echo "Launching miscellaneous optimizations..."
-    sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1"
     sudo systemctl disable NetworkManager-wait-online.service
     sudo rm /etc/xdg/autostart/org.gnome.Software.desktop
     sudo rm -f /usr/lib64/firefox/browser/defaults/preferences/firefox-redhat-default-prefs.js
