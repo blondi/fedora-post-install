@@ -77,7 +77,7 @@ nas_password=
 
 # packages
 nvidia_drivers="akmod-nvidia"
-dependencies="dconf dconf-editor git gh make typescript gettext just libgtop2-devel lm_sensors sass"
+dependencies="dconf dconf-editor git gh make typescript gettext just libgtop2-devel lm_sensors solaar sass"
 terminal="zsh"
 apps="keepassxc codium evolution flatpak"
 fonts="droidsansmono-nerd-fonts"
@@ -85,7 +85,7 @@ games="steam lutris discord"
 themes="tela-icon-theme"
 
 # extensions from package manager
-gextensions="gnome-tweaks gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-caffeine gnome-shell-extension-gsconnect gnome-shell-extension-pop-shell gnome-shell-extension-drive-menu"
+gextensions="gnome-tweaks gnome-theme-extra gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-caffeine gnome-shell-extension-gsconnect gnome-shell-extension-pop-shell gnome-shell-extension-drive-menu gnome-shell-extension-user-theme"
 
 # system detecion
 cpu=
@@ -449,12 +449,11 @@ install_gnome_extensions()
 	cd ~
 	
     install_gnome_extensions_from_zip
-
+    install_gnome_extension_appmenu_is_back
     install_gnome_extension_clipboard
     install_gnome_extension_openbar
     install_gnome_extension_roundedwincorners
     install_gnome_extension_spacebar
-    install_gnome_extension_wireless_hid
     echo "Done."
 }
 
@@ -504,16 +503,6 @@ install_gnome_extension_spacebar()
     git clone https://github.com/christopher-l/space-bar.git
     ~/space-bar/scripts/build.sh -i
     rm -rf ~/space-bar
-}
-
-install_gnome_extension_wireless_hid()
-{
-    git clone https://github.com/vchlum/wireless-hid.git
-    cd ~/wireless-hid
-    make build
-    make install
-    cd ~
-    rm -rf ~/wireless-hid
 }
 
 ###############
@@ -612,6 +601,7 @@ optimizations()
     sudo systemctl disable NetworkManager-wait-online.service
     sudo rm /etc/xdg/autostart/org.gnome.Software.desktop
     sudo rm -f /usr/lib64/firefox/browser/defaults/preferences/firefox-redhat-default-prefs.js
+    sudo hostnamectl set-hostname "fedora"
     echo
 }
 
@@ -690,7 +680,7 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/blur-my-shell/panel/blur false
     dconf write /org/gnome/shell/extensions/blur-my-shell/overview/blur true
     dconf write /org/gnome/shell/extensions/blur-my-shell/appfolder/blur true
-    dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/blur true
+    dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/blur false
     dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/static-blur false
     dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/sigma 25
     dconf write /org/gnome/shell/extensions/blur-my-shell/dash-to-dock/brightness 0.75
@@ -725,6 +715,11 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/openbar/boxalpha 0.0
     dconf write /org/gnome/shell/extensions/openbar/dark-mscolor "['0.929', '0.357', '0.000']"
     dconf write /org/gnome/shell/extensions/openbar/mscolor "['0.929', '0.357', '0.000']"
+    dconf write /org/gnome/shell/extensions/openbar/dashdock-style "'Custom'"
+    dconf write /org/gnome/shell/extensions/openbar/disize 42.0
+    dconf write /org/gnome/shell/extensions/openbar/dshadow false
+    dconf write /org/gnome/shell/extensions/openbar/dbradius 8.0
+    dconf write /org/gnome/shell/extensions/openbar/dbgalpha 0.60
 
     # dash-to-dock
     dconf write /org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size 42
@@ -735,7 +730,6 @@ set_gnome_settings_extensions()
     dconf write /org/gnome/shell/extensions/dash-to-dock/show-apps-at-top true
     dconf write /org/gnome/shell/extensions/dash-to-dock/show-mounts-network true
     dconf write /org/gnome/shell/extensions/dash-to-dock/isolate-locations false
-
 
     echo
 }
