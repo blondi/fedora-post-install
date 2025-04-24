@@ -383,7 +383,7 @@ configure_nas()
     for i in ${!naslocations[@]}
     do
         sudo mkdir ${naslocations[$i]}
-        fstab+="//$nas_ip_address/$i  ${naslocations[$i]}  cifs    credentials=$nascred_location,uid=1000,gid=1000    0 0\n"
+        fstab+="//$nas_ip_address/$i  ${naslocations[$i]}  cifs    credentials=$nas_credentials_location,uid=1000,gid=1000    0 0\n"
 
         echo "Access to \"$i\" (${naslocations[$i]}) has been created."
 
