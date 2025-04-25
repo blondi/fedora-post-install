@@ -77,9 +77,9 @@ nas_password=
 
 # packages
 nvidia_drivers="akmod-nvidia"
-dependencies="dconf dconf-editor git gh make typescript gettext just libgtop2-devel lm_sensors solaar sass"
+dependencies="dconf dconf-editor git gh make typescript gettext just libgtop2-devel glib2-devel lm_sensors sass"
 terminal="zsh"
-apps="keepassxc codium evolution flatpak"
+apps="keepassxc codium evolution solaar"
 fonts="droidsansmono-nerd-fonts"
 games="steam lutris discord"
 themes="tela-icon-theme"
@@ -333,7 +333,7 @@ set_monitor()
         my_mon_settings=("${laptopmon[@]}")
     fi
 
-    echo -e "$laptopmon" | sudo dd of=~/.config/monitors.xml status=none
+    echo -e "$my_mon_settings" | sudo dd of=~/.config/monitors.xml status=none
 
     # send config to GDM
     if [ $deskenv == "GNOME" ]
@@ -421,6 +421,7 @@ install_packages()
     sudo dnf install -y $terminal $apps $games $fonts $themes
     # FLATHUB
     echo "Configuring flathub..."
+    sudo dnf install -y flatpak
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     echo "Installing flathub packages..."
     flatpak install -y flathub com.spotify.Client
