@@ -619,6 +619,7 @@ set_gnome_settings()
     
     dconf write /org/gnome/desktop/background/picture-uri "'file:///usr/share/backgrounds/astronaut.png'"
     dconf write /org/gnome/desktop/background/picture-uri-dark "'file:///usr/share/backgrounds/astronaut.png'"
+    dconf write /org/gnome/desktop/input-sources/sources "[('xkb', 'be')]"
     dconf write /org/gnome/desktop/interface/accent-color "'orange'"
     dconf write /org/gnome/desktop/interface/clock-format "'24h'"
     dconf write /org/gnome/desktop/interface/clock-show-weekday true
