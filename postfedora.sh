@@ -85,7 +85,7 @@ games="steam lutris discord"
 themes="tela-icon-theme"
 
 # extensions from package manager
-gextensions="gnome-tweaks gnome-theme-extra gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-caffeine gnome-shell-extension-gsconnect gnome-shell-extension-pop-shell gnome-shell-extension-drive-menu gnome-shell-extension-user-theme"
+gextensions="gnome-tweaks gnome-themes-extra gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-caffeine gnome-shell-extension-gsconnect gnome-shell-extension-pop-shell gnome-shell-extension-drive-menu gnome-shell-extension-user-theme"
 
 # system detecion
 cpu=
